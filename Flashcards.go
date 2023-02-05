@@ -1,18 +1,30 @@
 package main
 
-import "fmt"
-
-var card string
-var definition string
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
 
-	fmt.Println("Card:")
+	reader := bufio.NewReader(os.Stdin)
+	card, _ := reader.ReadString('\n')
+	card = strings.TrimSpace(card)
 
-	fmt.Scan(&card)
+	reader2 := bufio.NewReader(os.Stdin)
+	definition, _ := reader2.ReadString('\n')
+	definition = strings.TrimSpace(definition)
 
-	fmt.Println("Definition:")
+	reader3 := bufio.NewReader(os.Stdin)
+	answer, _ := reader3.ReadString('\n')
+	answer = strings.TrimSpace(answer)
 
-	fmt.Scan(&definition)
+	if definition == answer {
+		fmt.Println("Your answer is right!")
+	} else {
+		fmt.Println("Your answer is wrong...")
+	}
 
 }
