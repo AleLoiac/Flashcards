@@ -7,6 +7,15 @@ import (
 	"strings"
 )
 
+type flashcard struct {
+	term       string
+	definition string
+}
+
+type flashcardDeck struct {
+	deck []flashcard
+}
+
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
