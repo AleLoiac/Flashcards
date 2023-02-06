@@ -25,11 +25,11 @@ func createCards(reader *bufio.Reader) {
 
 		var f flashcard
 
-		fmt.Printf("The term for card #%v: ", i+1)
+		fmt.Printf("The term for card #%v:\n", i+1)
 		ter, _ := reader.ReadString('\n')
 		ter = strings.TrimSpace(ter)
 
-		fmt.Printf("The definition for card #%v: ", i+1)
+		fmt.Printf("The definition for card #%v:\n", i+1)
 		def, _ := reader.ReadString('\n')
 		def = strings.TrimSpace(def)
 
