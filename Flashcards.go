@@ -32,7 +32,7 @@ func createCards(reader *bufio.Reader) {
 
 		for j := range flashcardDeck {
 			if ter == flashcardDeck[j].term {
-				fmt.Printf("The definition \"%v\" already exists. Try again:\n", flashcardDeck[j].term)
+				fmt.Printf("The term \"%v\" already exists. Try again:\n", flashcardDeck[j].term)
 				goto Loop1
 			}
 		}
