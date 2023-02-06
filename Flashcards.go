@@ -25,13 +25,29 @@ func createCards(reader *bufio.Reader) {
 
 		var f flashcard
 
+	Loop1:
 		fmt.Printf("The term for card #%v:\n", i+1)
 		ter, _ := reader.ReadString('\n')
 		ter = strings.TrimSpace(ter)
 
+		for j := range flashcardDeck {
+			if ter == flashcardDeck[j].term {
+				fmt.Printf("The definition \"%v\" already exists. Try again:\n", flashcardDeck[j].term)
+				goto Loop1
+			}
+		}
+
+	Loop2:
 		fmt.Printf("The definition for card #%v:\n", i+1)
 		def, _ := reader.ReadString('\n')
 		def = strings.TrimSpace(def)
+
+		for z := range flashcardDeck {
+			if def == flashcardDeck[z].definition {
+				fmt.Printf("The definition \"%v\" already exists. Try again:\n", flashcardDeck[z].definition)
+				goto Loop2
+			}
+		}
 
 		f.term = ter
 		f.definition = def
@@ -45,10 +61,21 @@ func quiz(reader *bufio.Reader) {
 		fmt.Printf("Print the definition of \"%v\":\n", flashcardDeck[i].term)
 		answer, _ := reader.ReadString('\n')
 		answer = strings.TrimSpace(answer)
+
 		if answer == flashcardDeck[i].definition {
 			fmt.Println("Correct!")
 		} else {
-			fmt.Printf("Wrong. The right answer is \"%v\".\n", flashcardDeck[i].definition)
+			control := false
+			for j := range flashcardDeck {
+				if answer == flashcardDeck[j].definition {
+					fmt.Printf("Wrong. The right answer is \"%v\", but your definition is correct for \"%v\".\n", flashcardDeck[i].definition, flashcardDeck[j].term)
+					control = true
+					break
+				}
+			}
+			if control == false {
+				fmt.Printf("Wrong. The right answer is \"%v\".\n", flashcardDeck[i].definition)
+			}
 		}
 	}
 }
