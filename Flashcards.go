@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -16,7 +17,7 @@ var flashcardDeck []flashcard
 
 var numberOfCards int
 
-func createCards() {
+func createCards(reader *bufio.Reader) {
 
 	flashcardDeck = make([]flashcard, 0)
 
@@ -25,13 +26,11 @@ func createCards() {
 		var f flashcard
 
 		fmt.Printf("The term for card #%v: ", i+1)
-		reader := bufio.NewReader(os.Stdin)
 		ter, _ := reader.ReadString('\n')
 		ter = strings.TrimSpace(ter)
 
 		fmt.Printf("The definition for card #%v: ", i+1)
-		reader2 := bufio.NewReader(os.Stdin)
-		def, _ := reader2.ReadString('\n')
+		def, _ := reader.ReadString('\n')
 		def = strings.TrimSpace(def)
 
 		f.term = ter
@@ -41,12 +40,30 @@ func createCards() {
 	}
 }
 
+func quiz(reader *bufio.Reader) {
+	for i := range flashcardDeck {
+		fmt.Printf("Print the definition of %v:\n", flashcardDeck[i].term)
+		answer, _ := reader.ReadString('\n')
+		answer = strings.TrimSpace(answer)
+		if answer == flashcardDeck[i].definition {
+			fmt.Println("Correct!")
+		} else {
+			fmt.Printf("Wrong. The right answer is %v.\n", flashcardDeck[i].definition)
+		}
+	}
+}
+
 func main() {
 
-	fmt.Scan(&numberOfCards)
+	fmt.Println("Input the number of cards:")
 
-	createCards()
+	reader := bufio.NewReader(os.Stdin)
+	num, _ := reader.ReadString('\n')
+	num = strings.TrimSpace(num)
+	numberOfCards, _ = strconv.Atoi(num)
 
-	fmt.Println(flashcardDeck)
+	createCards(reader)
+
+	quiz(reader)
 
 }
