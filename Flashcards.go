@@ -42,13 +42,13 @@ func createCards(reader *bufio.Reader) {
 
 func quiz(reader *bufio.Reader) {
 	for i := range flashcardDeck {
-		fmt.Printf("Print the definition of %v:\n", flashcardDeck[i].term)
+		fmt.Printf("Print the definition of \"%v\":\n", flashcardDeck[i].term)
 		answer, _ := reader.ReadString('\n')
 		answer = strings.TrimSpace(answer)
 		if answer == flashcardDeck[i].definition {
 			fmt.Println("Correct!")
 		} else {
-			fmt.Printf("Wrong. The right answer is %v.\n", flashcardDeck[i].definition)
+			fmt.Printf("Wrong. The right answer is \"%v\".\n", flashcardDeck[i].definition)
 		}
 	}
 }
