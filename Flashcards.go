@@ -12,28 +12,41 @@ type flashcard struct {
 	definition string
 }
 
-type flashcardDeck struct {
-	deck []flashcard
+var flashcardDeck []flashcard
+
+var numberOfCards int
+
+func createCards() {
+
+	flashcardDeck = make([]flashcard, 0)
+
+	for i := 0; i < numberOfCards; i++ {
+
+		var f flashcard
+
+		fmt.Printf("The term for card #%v: ", i+1)
+		reader := bufio.NewReader(os.Stdin)
+		ter, _ := reader.ReadString('\n')
+		ter = strings.TrimSpace(ter)
+
+		fmt.Printf("The definition for card #%v: ", i+1)
+		reader2 := bufio.NewReader(os.Stdin)
+		def, _ := reader2.ReadString('\n')
+		def = strings.TrimSpace(def)
+
+		f.term = ter
+		f.definition = def
+
+		flashcardDeck = append(flashcardDeck, f)
+	}
 }
 
 func main() {
 
-	reader := bufio.NewReader(os.Stdin)
-	card, _ := reader.ReadString('\n')
-	card = strings.TrimSpace(card)
+	fmt.Scan(&numberOfCards)
 
-	reader2 := bufio.NewReader(os.Stdin)
-	definition, _ := reader2.ReadString('\n')
-	definition = strings.TrimSpace(definition)
+	createCards()
 
-	reader3 := bufio.NewReader(os.Stdin)
-	answer, _ := reader3.ReadString('\n')
-	answer = strings.TrimSpace(answer)
-
-	if definition == answer {
-		fmt.Println("Your answer is right!")
-	} else {
-		fmt.Println("Your answer is wrong...")
-	}
+	fmt.Println(flashcardDeck)
 
 }
