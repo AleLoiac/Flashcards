@@ -17,6 +17,7 @@ var flashcardDeck []flashcard
 
 var numberOfCards int
 
+// split this function
 func createCards(reader *bufio.Reader) {
 
 	flashcardDeck = make([]flashcard, 0)
